@@ -1,0 +1,32 @@
+<zk>
+    <window apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('com.tutum.escuelita.CalificacionesViewModel')">
+        <hlayout id="ctlhlayout">
+        	<button id="revertBtn" width="115px" label="Reiniciar" onClick="@command('revertCalificaciones')" />
+            <button id="rmAllBtn" width="115px" label="Borrar todo"
+                disabled="@load(empty vm.data.tabla)" onClick="@command('deleteAllCalificaciones')" />
+        </hlayout>
+        <separator />
+        Inbox mails : <label value="@load(vm.data.sizeTabla)" />
+        <separator />
+        <grid height="350px" model="@load(vm.data.tabla)"
+            emptyMessage="Sin datos.">
+            <columns>
+                <column label="Id" width="50px" />
+                <column label="Alumno" />
+                <column label="Materia" />
+                <column label="Calificacion" />
+                <column label="	" width="100px" />
+            </columns>
+            <template name="model">
+                <row>
+                    <label value="@load(each.idCalificacion)" />
+                    <label value="@load(each.idAlumno.nombreCompleto)" />
+                    <label value="@load(each.idMateria.nombre)" />
+                    <label value="@load(each.calificacion)" />
+                    <button label="Delete" onClick="@command('removeCalificacion', mail=each)" />
+                </row>
+            </template>
+        </grid>
+    </window>
+</zk>
